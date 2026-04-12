@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WalkBACK</title>
-    <base href="/WalkBACK/" />
-    <link href="_framework/dotnet.bq1qfnpedp.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-Q8boSLQuQUxKpFnKWTBzoaQVEEphckt6yLHZ34ZMsAM=" />
+    <base href="/" />
+    <link href="_framework/dotnet.f5nsrnoh51.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-M9vRiHxpI4928EQlpDE36R25hSuaHWfxWlgwTCiZqdw=" />
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -14,7 +14,7 @@
     <script type="importmap">{
   "imports": {
     "./_framework/blazor.webassembly.js": "./_framework/blazor.webassembly.66stpp682q.js",
-    "./_framework/dotnet.js": "./_framework/dotnet.bq1qfnpedp.js",
+    "./_framework/dotnet.js": "./_framework/dotnet.f5nsrnoh51.js",
     "./_framework/dotnet.native.js": "./_framework/dotnet.native.87vtjjdetb.js",
     "./_framework/dotnet.runtime.js": "./_framework/dotnet.runtime.2tx45g8lli.js"
   },
@@ -22,8 +22,8 @@
   "integrity": {
     "./_framework/blazor.webassembly.66stpp682q.js": "sha256-3lCWrko3zwspV40aQhs2S/IMkRSarnHRKIdkHhuXIBA=",
     "./_framework/blazor.webassembly.js": "sha256-3lCWrko3zwspV40aQhs2S/IMkRSarnHRKIdkHhuXIBA=",
-    "./_framework/dotnet.bq1qfnpedp.js": "sha256-Q8boSLQuQUxKpFnKWTBzoaQVEEphckt6yLHZ34ZMsAM=",
-    "./_framework/dotnet.js": "sha256-Q8boSLQuQUxKpFnKWTBzoaQVEEphckt6yLHZ34ZMsAM=",
+    "./_framework/dotnet.f5nsrnoh51.js": "sha256-M9vRiHxpI4928EQlpDE36R25hSuaHWfxWlgwTCiZqdw=",
+    "./_framework/dotnet.js": "sha256-M9vRiHxpI4928EQlpDE36R25hSuaHWfxWlgwTCiZqdw=",
     "./_framework/dotnet.native.87vtjjdetb.js": "sha256-zE11fbcG2CeLl1Zi+NJgMOfWpdjuUWNte+icrtAO58I=",
     "./_framework/dotnet.native.js": "sha256-zE11fbcG2CeLl1Zi+NJgMOfWpdjuUWNte+icrtAO58I=",
     "./_framework/dotnet.runtime.2tx45g8lli.js": "sha256-2lZh9yO0fnzm3Xt7yV+Kox3DH3nK7L8hDhm84VT1xco=",
@@ -47,40 +47,6 @@
         <span class="dismiss">🗙</span>
     </div>
     <script src="_framework/blazor.webassembly.66stpp682q.js"></script>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script> <!--Подключение к firebase-->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script> <!--Подключение логина и пароля-->
-  <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyD1TU1Ktez4CfeGHi64YBti3DgekXlbKmQ",
-    authDomain: "walkback-ff11e.firebaseapp.com",
-    projectId: "walkback-ff11e",
-    storageBucket: "walkback-ff11e.firebasestorage.app",
-    messagingSenderId: "935820735200",
-    appId: "1:935820735200:web:10eb828d1a3255d469d685",
-    measurementId: "G-7PEQ848DLB"
-  };
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig); //Подключиться к firebase(проекту)
-  // const app = initializeApp(firebaseConfig);
-  // const analytics = getAnalytics(app);
-</script>
-<script>
-  function Register(email, password)
-  {
-
-    return firebase.auth().createUserWithEmailAndPassword(email, password);
-  }
-  function Login(email, password)
-  {
-    return firebase.auth().signInWithEmailAndPassword(email, password);
-  }
-  function Logout()
-  {
-    return firebase.auth().signOut();
-  }
-</script>
 </body>
 
 </html>

@@ -12,7 +12,7 @@ main[b-osgxdconr6] {
 .sidebar[b-osgxdconr6] {
     width: 180px;
     padding: 6px;
-    background-image: url('/site/windowsxp.jpg');
+    background-image: url('site/windowsxp.jpg');
     background-size: cover;
 }
 .year-search[b-osgxdconr6]
