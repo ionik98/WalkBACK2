@@ -66,7 +66,7 @@
   firebase.initializeApp(firebaseConfig); //Подключиться к firebase(проекту)
   // const app = initializeApp(firebaseConfig);
   // const analytics = getAnalytics(app);
-  async function register(email, password)
+  window.register = async function (email, password)
   {
     try
     {
@@ -78,7 +78,7 @@
       return e.message;
     }
   }
-  async function login(email, password)
+ window.login = async function (email, password)
   {
     try
     {
@@ -99,7 +99,7 @@
     return firebase.auth().currentUser?.email
   }
       
- async function getFullProfile() {
+window.getFullProfile = async function () {
 
   let user = firebase.auth().currentUser;
 
@@ -126,7 +126,7 @@
   };
 }
       
-async function saveProfile(name, avatar, desc) {
+window.saveProfile = async function (name, avatar, desc) {
   try {
     const user = firebase.auth().currentUser;
 
