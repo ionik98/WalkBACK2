@@ -66,7 +66,7 @@
   firebase.initializeApp(firebaseConfig); //Подключиться к firebase(проекту)
   // const app = initializeApp(firebaseConfig);
   // const analytics = getAnalytics(app);
-  async function register(email, password)
+  window.register = async function (email, password)
   {
     try
     {
@@ -78,7 +78,7 @@
       return e.message;
     }
   }
-  async function login(email, password)
+ window.login = async function (email, password)
   {
     try
     {
@@ -90,6 +90,69 @@
       return e.message;
     }
   }
+  function logout()
+  {
+    return firebase.auth().signOut();
+  }
+  function getUser()
+  {
+    return firebase.auth().currentUser?.email
+  }
+      
+window.getFullProfile = async function () {
+
+  let user = firebase.auth().currentUser;
+
+  // ждём до 2 секунд пока Firebase подгрузится
+  let attempts = 0;
+  while (!user && attempts < 20) {
+    await new Promise(r => setTimeout(r, 100));
+    user = firebase.auth().currentUser;
+    attempts++;
+  }
+
+  if (!user) return null;
+
+  const doc = await firebase.firestore()
+    .collection("users")
+    .doc(user.uid)
+    .get();
+
+  return {
+    name: user.displayName,
+    avatar: user.photoURL,
+    email: user.email,
+    desc: doc.exists ? doc.data().desc : ""
+  };
+}
+      
+window.saveProfile = async function (name, avatar, desc) {
+  try {
+    const user = firebase.auth().currentUser;
+
+    // обновляем auth (имя + фото)
+    await user.updateProfile({
+      displayName: name,
+      photoURL: avatar
+    });
+
+    // сохраняем bio в Firestore
+    await firebase.firestore()
+      .collection("users")
+      .doc(user.uid)
+      .set({
+        desc: desc
+      }, { merge: true });
+
+    return "OK";
+  } catch (e) {
+    return e.message;
+  }
+}
+</script>
+</body>
+
+</html>
   function logout()
   {
     return firebase.auth().signOut();
