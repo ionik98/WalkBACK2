@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WalkBACK</title>
     <base href="/WalkBACK2/" />
-    <link href="_framework/dotnet.k0kmziq7zx.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-LAYtJ73+8PDByk1yvP9RTa436S0Oe3+dUMElGejKwQY=" />
+    <link href="_framework/dotnet.qtk2k2qvvo.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-7hFoI00EqBxpwX9NULLkRof4mzfroIBk0/qoa/u/qr8=" />
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -14,18 +14,18 @@
     <script type="importmap">{
   "imports": {
     "./_framework/blazor.webassembly.js": "./_framework/blazor.webassembly.66stpp682q.js",
-    "./_framework/dotnet.js": "./_framework/dotnet.k0kmziq7zx.js",
     "./_framework/dotnet.native.js": "./_framework/dotnet.native.69poregybn.js",
+    "./_framework/dotnet.js": "./_framework/dotnet.qtk2k2qvvo.js",
     "./_framework/dotnet.runtime.js": "./_framework/dotnet.runtime.q5rqv3xrhm.js"
   },
   "scopes": {},
   "integrity": {
     "./_framework/blazor.webassembly.66stpp682q.js": "sha256-3lCWrko3zwspV40aQhs2S/IMkRSarnHRKIdkHhuXIBA=",
     "./_framework/blazor.webassembly.js": "sha256-3lCWrko3zwspV40aQhs2S/IMkRSarnHRKIdkHhuXIBA=",
-    "./_framework/dotnet.js": "sha256-LAYtJ73+8PDByk1yvP9RTa436S0Oe3+dUMElGejKwQY=",
-    "./_framework/dotnet.k0kmziq7zx.js": "sha256-LAYtJ73+8PDByk1yvP9RTa436S0Oe3+dUMElGejKwQY=",
+    "./_framework/dotnet.js": "sha256-7hFoI00EqBxpwX9NULLkRof4mzfroIBk0/qoa/u/qr8=",
     "./_framework/dotnet.native.69poregybn.js": "sha256-JvdIvkSF0x6euoPT2QnQSMg2Gyv2oJbFeBi1XmWLYFU=",
     "./_framework/dotnet.native.js": "sha256-JvdIvkSF0x6euoPT2QnQSMg2Gyv2oJbFeBi1XmWLYFU=",
+    "./_framework/dotnet.qtk2k2qvvo.js": "sha256-7hFoI00EqBxpwX9NULLkRof4mzfroIBk0/qoa/u/qr8=",
     "./_framework/dotnet.runtime.js": "sha256-ArknccFM1sHNVcih0x1h52AG+abNCoQjl6BlVrv3ePw=",
     "./_framework/dotnet.runtime.q5rqv3xrhm.js": "sha256-ArknccFM1sHNVcih0x1h52AG+abNCoQjl6BlVrv3ePw="
   }
@@ -47,7 +47,7 @@
         <span class="dismiss">🗙</span>
     </div>
     <script src="_framework/blazor.webassembly.66stpp682q.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script> <!--Подключение к firebase-->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script> <!--Подключение логина и пароля-->
   <script>
@@ -97,6 +97,45 @@
   {
     return firebase.auth().currentUser.email
   }
+  async function getFullProfile() {
+  const user = firebase.auth().currentUser;
+  if (!user) return null;
+
+  const doc = await firebase.firestore()
+    .collection("users")
+    .doc(user.uid)
+    .get();
+
+  return {
+    name: user.displayName,
+    avatar: user.photoURL,
+    email: user.email,
+    desc: doc.exists ? doc.data().desc : ""
+  };
+}
+async function saveProfile(name, avatar, desc) {
+  try {
+    const user = firebase.auth().currentUser;
+
+    // обновляем auth (имя + фото)
+    await user.updateProfile({
+      displayName: name,
+      photoURL: avatar
+    });
+
+    // сохраняем bio в Firestore
+    await firebase.firestore()
+      .collection("users")
+      .doc(user.uid)
+      .set({
+        desc: desc
+      }, { merge: true });
+
+    return "OK";
+  } catch (e) {
+    return e.message;
+  }
+}
 </script>
 </body>
 
